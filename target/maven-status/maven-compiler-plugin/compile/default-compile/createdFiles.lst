@@ -1,0 +1,5 @@
+com\proyecto\ServiciosDatos\AccesoDatos.class
+com\proyecto\JakartaRestConfiguration.class
+com\proyecto\resources\JakartaEE10Resource.class
+com\proyecto\ServiciosDatos\DatosUsuarios.class
+com\proyecto\Entidades\Usuario.class
