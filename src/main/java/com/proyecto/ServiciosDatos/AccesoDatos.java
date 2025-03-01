@@ -20,9 +20,9 @@ public class AccesoDatos {
 
     private String host = "localhost";
     private String user = "root";
-    private String pass = ""; //Agregar su contraseña de su base de datos
+    private String pass = "J0620"; //Agregar su contraseña de su base de datos
     private String puerto = "3306";
-    private String esquemas = ""; // Agregar su tabla de la base de datos
+    private String esquemas = "grupoproyecto"; // Agregar su tabla de la base de datos
 
     public void Conectar() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
