@@ -49,6 +49,13 @@ Data View
     margin: 5px;
 }
 
+.img-producto {
+    width: 70px;
+    height: 50px;
+    overflow: hidden;
+    object-fit: cover; /* Recorta la imagen para llenar el espacio */
+}
+
 /*
 
 Menu lateral

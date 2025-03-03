@@ -27,7 +27,7 @@ public class DatosOfertas extends AccesoDatos {
         try {
 
             super.Conectar();
-            String sql = "SELECT idOferta, nombrePuesto FROM ofertas;";
+            String sql = "SELECT idOferta, nombrePuesto, logo FROM ofertas;";
             prepared = super.getConector().prepareStatement(sql);
             result = prepared.executeQuery();
 
@@ -36,6 +36,7 @@ public class DatosOfertas extends AccesoDatos {
                 Ofertas objOfertas = new Ofertas();
                 objOfertas.setIdOferta(result.getInt("idOferta"));
                 objOfertas.setNombrePuesto(result.getString("nombrePuesto"));
+                objOfertas.setImagenOferta(result.getString("logo"));
 
                 listaRetorno.add(objOfertas);
 

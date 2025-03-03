@@ -22,13 +22,13 @@
                     <p:menuitem value="Calendar" outcome="" icon="pi pi-fw pi-calendar">
                         <f:param name="i" value="1"/>
                     </p:menuitem>
-                    <p:menuitem value="Edit" outcome="" icon="pi pi-fw pi-pencil">
+                    <p:menuitem value="Edit" outcome="" icon="pi pi-fw pi-building">
                         <f:param name="i" value="2"/>
                     </p:menuitem>
-                    <p:menuitem value="Documentation" outcome="" icon="pi pi-fw pi-file">
+                    <p:menuitem value="Mensajeria" outcome="" icon="pi pi-fw pi-send">
                         <f:param name="i" value="3"/>
                     </p:menuitem>
-                    <p:menuitem value="Settings" outcome="" icon="pi pi-fw pi-cog">
+                    <p:menuitem value="Perfil" outcome="" icon="pi pi-fw pi-user">
                         <f:param name="i" value="4"/>
                     </p:menuitem>
                 </p:tabMenu>
@@ -37,19 +37,25 @@
 
             <h:form id="form">
                 <p:dataView var="product" value="#{controllerOfertas.listaOfertas}" rows="12" paginator="true"
-                            rowsPerPageTemplate="6,12,16"
+                            rowsPerPageTemplate="6,12,16" 
                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                             listIcon="pi pi-bars">
 
                     <p:dataViewGridItem>
                         <div class="product-grid-item card border-1">
+                            
+                            <div class="product-grid-item-content">
+                                
+                                <p:graphicImage name="ima/#{product.imagenOferta}" styleClass="img-producto"/>
                             <div class="product-nombrePuesto">#{product.nombrePuesto}</div>
                             <div class="product-idOferta">#{product.idOferta}</div>
 
                             <p:commandButton type="button"
-                                             value="Add To Cart"
-                                             icon="pi pi-shopping-cart">
+                                             value="Ver"
+                                             icon="pi pi-eye">
                             </p:commandButton>
+                            </div>
+                            
                         </div>
 
 
@@ -57,14 +63,15 @@
 
                     <p:dataViewListItem>
                         <div class="product-list-item">
+                            <p:graphicImage name="ima/#{product.imagenOferta}"/>
                             <div class="product-nombrePuesto">#{product.nombrePuesto}</div>
                             <div class="product-idOferta">#{product.idOferta}</div>
                             <p:commandButton type="button"
-                                         value="Add To Cart"
-                                         icon="pi pi-shopping-cart">
-                        </p:commandButton>
+                                             value="Ver"
+                                             icon="pi pi-eye">
+                            </p:commandButton>
                         </div>
-                        
+
 
                     </p:dataViewListItem>
                 </p:dataView>

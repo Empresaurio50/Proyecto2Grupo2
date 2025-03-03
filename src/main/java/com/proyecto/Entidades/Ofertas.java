@@ -15,15 +15,17 @@ public class Ofertas implements Serializable{
     protected int idOferta;
     private String nombrePuesto, remunerada;
     private int idEmpresa;
+    private String imagenOferta; // Campo para almacenar la imagen
 
     public Ofertas() {
     }
 
-    public Ofertas(int idOferta, String nombrePuesto, String remunerada, int idEmpresa) {
+    public Ofertas(int idOferta, String nombrePuesto, String remunerada, String imagenOferta) {
         this.idOferta = idOferta;
         this.nombrePuesto = nombrePuesto;
         this.remunerada = remunerada;
-        this.idEmpresa = idEmpresa;
+        this.imagenOferta = imagenOferta;
+        
     }
 
     public int getIdOferta() {
@@ -58,4 +60,11 @@ public class Ofertas implements Serializable{
         this.idEmpresa = idEmpresa;
     }
 
+    public String getImagenOferta() {
+        return imagenOferta;
+    }
+
+    public void setImagenOferta(String imagenOferta) {
+        this.imagenOferta = imagenOferta;
+    }
 }
