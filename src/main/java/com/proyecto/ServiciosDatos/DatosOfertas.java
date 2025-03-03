@@ -10,21 +10,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author empre
  */
-public class DatosOfertas extends AccesoDatos{
-    
+public class DatosOfertas extends AccesoDatos {
+
     private PreparedStatement prepared = null;
     private ResultSet result = null;
-    
-    public List<Ofertas> leerOferta(){
+
+    public List<Ofertas> leerOferta() {
 
         List<Ofertas> listaRetorno = new ArrayList<>();
-        
+
         try {
 
             super.Conectar();
@@ -38,11 +37,8 @@ public class DatosOfertas extends AccesoDatos{
                 objOfertas.setIdOferta(result.getInt("idOferta"));
                 objOfertas.setNombrePuesto(result.getString("nombrePuesto"));
 
-                
-                
                 listaRetorno.add(objOfertas);
-                
-                JOptionPane.showMessageDialog(null,"Se encontro " + objOfertas.getIdOferta() + " " + objOfertas.getNombrePuesto());
+
             }
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -54,6 +50,5 @@ public class DatosOfertas extends AccesoDatos{
         }
         return listaRetorno;
     }
-    
-    
+
 }

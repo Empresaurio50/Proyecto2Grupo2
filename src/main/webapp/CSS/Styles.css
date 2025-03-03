@@ -1,0 +1,105 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 25 feb 2025, 12:43:38
+    Author     : empre
+*/
+
+/*
+
+
+Data View
+
+*/
+/* Hacer que el contenedor principal ocupe toda la pantalla */
+.container {
+    display: flex;
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
+}
+
+/* Ajustar el card que contiene el menú */
+.card {
+    width: 200px; /* Ancho del menú lateral */
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Ajustar el formulario y el contenido del DataView */
+#form {
+    flex-grow: 1; /* Ocupa el espacio restante */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Hacer que el p:dataView use todo el espacio disponible */
+.p-dataview {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* Ajustar los elementos de la lista/grid */
+.product-grid-item, .product-list-item {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+/*
+
+Menu lateral
+
+*/
+/* Eliminar las barras laterales */
+.card {
+    overflow: hidden !important;
+}
+
+.ui-tabmenu {
+    height: 100%;
+    
+}
+
+.ui-tabmenu .ui-tabmenu-nav {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden !important; /* Eliminar barra de desplazamiento */
+}
+
+.ui-tabmenu .ui-tabmenu-nav li {
+    flex-grow: 1; /* Distribuir mejor los elementos */
+    display: flex;
+    align-items: center; /* Centrar verticalmente el contenido */
+    justify-content: center; /* Centrar horizontalmente el contenido */
+    padding: 10px; /* Añadir padding para mejor espaciado */
+}
+
+/* Media Queries para hacer el menú responsive */
+@media (max-width: 768px) {
+    .ui-tabmenu .ui-tabmenu-nav {
+        flex-direction: row; /* Cambiar a dirección horizontal en pantallas pequeñas */
+        height: auto; /* Ajustar la altura automáticamente */
+    }
+
+    .ui-tabmenu .ui-tabmenu-nav li {
+        flex-grow: 0; /* No permitir que los elementos crezcan */
+        flex-basis: auto; /* Ajustar el tamaño base automáticamente */
+        padding: 5px; /* Reducir el padding en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .ui-tabmenu .ui-tabmenu-nav {
+        flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas muy pequeñas */
+    }
+
+    .ui-tabmenu .ui-tabmenu-nav li {
+        flex-basis: 50%; /* Hacer que cada elemento ocupe la mitad del ancho */
+        padding: 5px; /* Reducir el padding aún más */
+    }
+}
