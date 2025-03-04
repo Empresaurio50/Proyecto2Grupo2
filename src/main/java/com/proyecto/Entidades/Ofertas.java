@@ -13,19 +13,21 @@ import java.io.Serializable;
 public class Ofertas implements Serializable{
     
     protected int idOferta;
-    private String nombrePuesto, remunerada;
+    private String nombrePuesto, remunerada, empresa, ubicacion, detalles;
     private int idEmpresa;
     private String imagenOferta; // Campo para almacenar la imagen
 
     public Ofertas() {
     }
 
-    public Ofertas(int idOferta, String nombrePuesto, String remunerada, String imagenOferta) {
+    public Ofertas(int idOferta, String nombrePuesto, String remunerada, int idEmpresa, String empresa, String ubicacion, String detalle) {
         this.idOferta = idOferta;
         this.nombrePuesto = nombrePuesto;
         this.remunerada = remunerada;
-        this.imagenOferta = imagenOferta;
-        
+        this.idEmpresa = idEmpresa;
+        this.empresa = empresa;
+        this.ubicacion = ubicacion;
+        this.detalles = detalles;
     }
 
     public int getIdOferta() {
@@ -60,11 +62,39 @@ public class Ofertas implements Serializable{
         this.idEmpresa = idEmpresa;
     }
 
+    public String getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public String getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(String detalles) {
+        this.detalles = detalles;
+    }
+
     public String getImagenOferta() {
         return imagenOferta;
     }
 
     public void setImagenOferta(String imagenOferta) {
         this.imagenOferta = imagenOferta;
+    }
+    
+    public void setDescripcion(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

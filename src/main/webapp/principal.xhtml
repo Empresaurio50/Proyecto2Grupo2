@@ -8,75 +8,97 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="icon" type="img/jpg" href="Imagenes/java.jpg"/>
         <link rel="stylesheet" href="CSS/Styles.css"/>
+        
+        <h:outputStylesheet>
+            .product-grid-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            margin-bottom: 10px;
+            }
+            .product-nombrePuesto {
+            font-weight: bold;
+            font-size: 16px;
+            }
+            .product-idOferta {
+            color: gray;
+            font-size: 14px;
+            }
+        </h:outputStylesheet>
+        
     </h:head>
 
     <h:body>
         <div class="container">
-
+            <!-- Menú lateral -->
             <div class="card">
-                <h5 class="mt-0"></h5>
-                <p:tabMenu activeIndex="" style="width:auto; height:auto;" orientation="left">
-                    <p:menuitem value="Home" outcome="" icon="pi pi-fw pi-home">
-                        <f:param name="i" value="0"/>
-                    </p:menuitem>
-                    <p:menuitem value="Calendar" outcome="" icon="pi pi-fw pi-calendar">
-                        <f:param name="i" value="1"/>
-                    </p:menuitem>
-                    <p:menuitem value="Edit" outcome="" icon="pi pi-fw pi-building">
-                        <f:param name="i" value="2"/>
-                    </p:menuitem>
-                    <p:menuitem value="Mensajeria" outcome="" icon="pi pi-fw pi-send">
-                        <f:param name="i" value="3"/>
-                    </p:menuitem>
-                    <p:menuitem value="Perfil" outcome="" icon="pi pi-fw pi-user">
-                        <f:param name="i" value="4"/>
-                    </p:menuitem>
+                <p:tabMenu activeIndex="0" style="width:auto; height:auto;" orientation="left">
+                    <p:menuitem value="Home" outcome="" icon="pi pi-fw pi-home"/>
                 </p:tabMenu>
             </div>
 
-
+            <!-- Lista de ofertas -->
             <h:form id="form">
                 <p:dataView var="product" value="#{controllerOfertas.listaOfertas}" rows="12" paginator="true"
                             rowsPerPageTemplate="6,12,16" 
                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                            listIcon="pi pi-bars">
+                            gridIcon="pi pi-th-large" listIcon="pi pi-bars">
 
+                    <!-- Vista en cuadrícula -->
                     <p:dataViewGridItem>
                         <div class="product-grid-item card border-1">
-                            
                             <div class="product-grid-item-content">
-                                
                                 <p:graphicImage name="ima/#{product.imagenOferta}" styleClass="img-producto"/>
-                            <div class="product-nombrePuesto">#{product.nombrePuesto}</div>
-                            <div class="product-idOferta">#{product.idOferta}</div>
-
-                            <p:commandButton type="button"
-                                             value="Ver"
-                                             icon="pi pi-eye">
-                            </p:commandButton>
+                                <div class="product-nombrePuesto">#{product.nombrePuesto}</div>
+                                <div class="product-idOferta">ID: #{product.idOferta}</div>
+                                <p:commandButton value="Ver" icon="pi pi-info-circle"
+                                                 actionListener="#{controllerOfertas.verDetalles(product)}"
+                                                 update=":detallePanel"
+                                                 oncomplete="PF('detalleDialog').show()"/>
                             </div>
-                            
                         </div>
-
-
                     </p:dataViewGridItem>
 
+                    <!-- Vista en lista -->
                     <p:dataViewListItem>
-                        <div class="product-list-item">
-                            <p:graphicImage name="ima/#{product.imagenOferta}"/>
+                        <div class="product-grid-item">
+                            <p:graphicImage name="ima/#{product.imagenOferta}" styleClass="img-producto"/>
                             <div class="product-nombrePuesto">#{product.nombrePuesto}</div>
-                            <div class="product-idOferta">#{product.idOferta}</div>
-                            <p:commandButton type="button"
-                                             value="Ver"
-                                             icon="pi pi-eye">
-                            </p:commandButton>
+                            <p:commandButton value="Ver" icon="pi pi-info-circle"
+                                             actionListener="#{controllerOfertas.verDetalles(product)}"
+                                             update=":detallePanel"
+                                             oncomplete="PF('detalleDialog').show()"/>
                         </div>
-
-
                     </p:dataViewListItem>
                 </p:dataView>
             </h:form>
-
         </div>
+
+        <!-- Panel lateral con detalles de la oferta -->
+        <p:sidebar widgetVar="detalleDialog" position="right" id="detallePanel" dynamic="true">
+            <h:form>
+                <h3>Detalles de la Oferta</h3>
+                <p><strong>Nombre del Puesto:</strong> #{controllerOfertas.ofertaSeleccionada.nombrePuesto}</p>
+                <p><strong>Empresa:</strong> #{controllerOfertas.ofertaSeleccionada.empresa}</p>
+                <p><strong>Ubicación:</strong> #{controllerOfertas.ofertaSeleccionada.ubicacion}</p>
+                <p><strong>Descripción:</strong> #{controllerOfertas.ofertaSeleccionada.detalles}</p>
+                
+
+                <p:growl id="messages" showDetail="true" life="3000"/>
+
+                <p:commandButton value="Solicitar" icon="pi pi-check"
+                                 style="background-color: #28a745; color: white; width: 100%; margin-top: 10px;"
+                                 actionListener="#{controllerOfertas.solicitarOferta(controllerOfertas.ofertaSeleccionada.idOferta)}"
+                                 update="messages"/>
+
+                <p:commandButton value="Cerrar" icon="pi pi-times"
+                                 onclick="PF('detalleDialog').hide()" style="width:100%; margin-top: 5px;"/>
+            </h:form>
+        </p:sidebar>
     </h:body>
 </html>
