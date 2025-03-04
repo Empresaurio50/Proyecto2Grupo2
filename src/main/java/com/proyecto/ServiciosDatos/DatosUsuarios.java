@@ -19,12 +19,11 @@ public class DatosUsuarios extends AccesoDatos{
     
     private PreparedStatement prepared = null;
     private ResultSet result = null;
-    
-    
+
     public List<Usuario> leerUsuario() throws SQLException {
 
         List<Usuario> listaRetorno = new ArrayList<>();
-        
+
         try {
 
             super.Conectar();
@@ -36,7 +35,6 @@ public class DatosUsuarios extends AccesoDatos{
 
                 Usuario objUsuario = new Usuario();
                 objUsuario.setIdUsuario(result.getInt(""));
-                
 
                 listaRetorno.add(objUsuario);
 
@@ -51,33 +49,64 @@ public class DatosUsuarios extends AccesoDatos{
         }
         return listaRetorno;
     }
-    
-    public void insertarUsuario(Usuario objUsuario) {
 
+    public boolean existeUsuario(String correo) {
         try {
             super.Conectar();
-            String sql = "INSERT INTO estudiantes(nombreEstudiante, correoEstudiante, contraEstudiante) VALUES(?,?,?)";
+            String sql = "SELECT COUNT(*) FROM usuario WHERE correoUsuario = ?";
             prepared = super.getConector().prepareStatement(sql);
-            prepared.setString(1, objUsuario.getNombreUsuario());
+            prepared.setString(1, correo);
+            result = prepared.executeQuery();
 
-            int registro = prepared.executeUpdate();
-
-            if (registro == 0) {
-                throw new SQLException("No se agrego ningun registro");
+            if (result.next()) {
+                return result.getInt(1) > 0;
             }
-            prepared.executeQuery();
-
-        } catch (SQLException | ClassNotFoundException e) {
-            System.out.print(e);
-
+            return false;
+        } catch (Exception e) {
+            System.out.println("Error al verificar usuario: " + e.getMessage());
+            return false;
         } finally {
             cerrarConexion();
             cerrarPrepared(prepared);
-            
+            cerrarResult(result);
         }
-
     }
-    
+
+    public boolean insertarUsuario(Usuario objUsuario) throws Exception {
+        try {
+            // Primero verificar si el usuario ya existe
+            if (existeUsuario(objUsuario.getCorreoUsuario())) {
+                throw new Exception("Ya existe un usuario registrado con este correo electrónico");
+            }
+
+            super.Conectar();
+            String sql = "INSERT INTO usuario (nombreUsuario, contrasenaUsuario, correoUsuario, "
+                    + "fechaNacimiento, carrera, idProvincia) "
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
+
+            prepared = super.getConector().prepareStatement(sql);
+            prepared.setString(1, objUsuario.getNombreUsuario());
+            prepared.setString(2, objUsuario.getContrasenaUsuario());
+            prepared.setString(3, objUsuario.getCorreoUsuario());
+            prepared.setDate(4, new java.sql.Date(objUsuario.getFechaNacimiento().getTime()));
+            prepared.setString(5, objUsuario.getCarrera());
+            prepared.setInt(6, objUsuario.getIdProvincia());
+
+            int resultado = prepared.executeUpdate();
+            return resultado > 0;
+
+        } catch (SQLException e) {
+            if (e.getSQLState().equals("23000")) { // Error de duplicado
+                throw new Exception("Ya existe un usuario registrado con este correo electrónico");
+            } else {
+                throw new Exception("Error al registrar usuario: " + e.getMessage());
+            }
+        } finally {
+            cerrarConexion();
+            cerrarPrepared(prepared);
+        }
+    }
+
     public void actulizarUsuario(Usuario objUsuario) {
 
         try {
@@ -99,10 +128,10 @@ public class DatosUsuarios extends AccesoDatos{
         } finally {
             cerrarConexion();
             cerrarPrepared(prepared);
-            
+
         }
     }
-    
+
     public void eliminarUsuario(Usuario objUsuario) {
 
         try {
@@ -124,7 +153,7 @@ public class DatosUsuarios extends AccesoDatos{
         } finally {
             cerrarConexion();
             cerrarPrepared(prepared);
-            
+
         }
     }
 }
