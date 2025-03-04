@@ -22,21 +22,23 @@ import java.util.stream.Collectors;
  *
  * @author empre
  */
+
 @Named
 @SessionScoped
-public class ControllerOfertas implements Serializable {
-
+public class ControllerOfertas implements Serializable{
+    
     private List<Ofertas> listaOfertas = new ArrayList<>();
-
+    
     private String filtroNombre = "";
     private String filtroEmpresa = "";
     private String filtroUbicacion = "";
-
+    
     private Ofertas ofertaSeleccionada; //Guarda la oferta seleccionada
     private boolean mostrarDetalles = false; //Controla si el panel lateral se muestra
 
+    
     private List<Ofertas> ofertasFiltradas = new ArrayList<>();
-
+    
     @PostConstruct
     public void cargarOfertas() {
         DatosOfertas datosOfertas = new DatosOfertas();
@@ -46,14 +48,10 @@ public class ControllerOfertas implements Serializable {
 
     public void filtrarOfertas() {
         this.ofertasFiltradas = listaOfertas.stream()
-                .filter(this::cumpleFiltros)
+                .filter(oferta -> filtroNombre.isEmpty() || oferta.getNombrePuesto().toLowerCase().contains(filtroNombre.toLowerCase()))
+                .filter(oferta -> filtroEmpresa.isEmpty() || oferta.getEmpresa().toLowerCase().contains(filtroEmpresa.toLowerCase()))
+                .filter(oferta -> filtroUbicacion.isEmpty() || oferta.getUbicacion().toLowerCase().contains(filtroUbicacion.toLowerCase()))
                 .collect(Collectors.toList());
-    }
-
-    private boolean cumpleFiltros(Ofertas oferta) {
-        return (filtroNombre.isEmpty() || oferta.getNombrePuesto().toLowerCase().contains(filtroNombre.toLowerCase()))
-                && (filtroEmpresa.isEmpty() || oferta.getEmpresa().toLowerCase().contains(filtroEmpresa.toLowerCase()))
-                && (filtroUbicacion.isEmpty() || oferta.getUbicacion().toLowerCase().contains(filtroUbicacion.toLowerCase()));
     }
 
     public void redireccionar(String ruta) {
@@ -63,7 +61,7 @@ public class ControllerOfertas implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().redirect(request.getContextPath() + ruta);
         } catch (IOException e) {
         }
-    }
+    } 
 
     public void solicitarOferta(int idOferta) {
         // Simulación de envío de solicitud (aquí podrías agregar lógica real)
@@ -73,12 +71,12 @@ public class ControllerOfertas implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitud enviada", "Tu solicitud ha sido enviada correctamente."));
     }
-
+    
     public void verDetalles(Ofertas oferta) {
         this.ofertaSeleccionada = oferta;
         this.mostrarDetalles = true;
     }
-
+    
     public List<Ofertas> getListaOfertas() {
         return listaOfertas;
     }
@@ -134,5 +132,4 @@ public class ControllerOfertas implements Serializable {
     public void setOfertasFiltradas(List<Ofertas> ofertasFiltradas) {
         this.ofertasFiltradas = ofertasFiltradas;
     }
-
 }
