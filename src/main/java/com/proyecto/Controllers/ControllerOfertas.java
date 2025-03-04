@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -27,17 +28,34 @@ import java.util.List;
 public class ControllerOfertas implements Serializable{
     private List<Ofertas> listaOfertas = new ArrayList<>();
     
+    
+    private String filtroNombre;
+    private String filtroEmpresa;
+    private String filtroUbicacion;
+    
     private Ofertas ofertaSeleccionada; //Guarda la oferta seleccionada
     private boolean mostrarDetalles = false; //Controla si el panel lateral se muestra
 
-    public void a(){
-        
+    
+    private List<Ofertas> ofertasFiltradas = new ArrayList<>();
+    
+    public void cargarOfertas() {
         DatosOfertas datosOfertas = new DatosOfertas();
         this.listaOfertas = datosOfertas.leerOferta();
+        this.ofertasFiltradas = new ArrayList<>(listaOfertas); // Copia inicial
         this.redireccionar("/principal.xhtml");
+    }
 
+    public void filtrarOfertas() {
+        this.ofertasFiltradas = listaOfertas.stream()
+                .filter(oferta -> filtroNombre.isEmpty() || oferta.getNombrePuesto().toLowerCase().contains(filtroNombre.toLowerCase()))
+                .filter(oferta -> filtroEmpresa.isEmpty() || oferta.getEmpresa().toLowerCase().contains(filtroEmpresa.toLowerCase()))
+                .filter(oferta -> filtroUbicacion.isEmpty() || oferta.getUbicacion().toLowerCase().contains(filtroUbicacion.toLowerCase()))
+                .collect(Collectors.toList());
     }
     
+    
+
     public void redireccionar(String ruta) {
         HttpServletRequest request;
         try {
@@ -56,6 +74,10 @@ public class ControllerOfertas implements Serializable{
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitud enviada", "Tu solicitud ha sido enviada correctamente."));
     }
     
+    public void verDetalles(Ofertas oferta) {
+        this.ofertaSeleccionada = oferta;
+        this.mostrarDetalles = true;
+    }
     
     public List<Ofertas> getListaOfertas() {
         return listaOfertas;
@@ -80,7 +102,38 @@ public class ControllerOfertas implements Serializable{
     public void setMostrarDetalles(boolean mostrarDetalles) {
         this.mostrarDetalles = mostrarDetalles;
     }
-    
+
+    public String getFiltroNombre() {
+        return filtroNombre;
+    }
+
+    public void setFiltroNombre(String filtroNombre) {
+        this.filtroNombre = filtroNombre;
+    }
+
+    public String getFiltroEmpresa() {
+        return filtroEmpresa;
+    }
+
+    public void setFiltroEmpresa(String filtroEmpresa) {
+        this.filtroEmpresa = filtroEmpresa;
+    }
+
+    public String getFiltroUbicacion() {
+        return filtroUbicacion;
+    }
+
+    public void setFiltroUbicacion(String filtroUbicacion) {
+        this.filtroUbicacion = filtroUbicacion;
+    }
+
+    public List<Ofertas> getOfertasFiltradas() {
+        return ofertasFiltradas;
+    }
+
+    public void setOfertasFiltradas(List<Ofertas> ofertasFiltradas) {
+        this.ofertasFiltradas = ofertasFiltradas;
+    }
     
     
 }

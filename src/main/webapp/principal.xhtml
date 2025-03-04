@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="icon" type="img/jpg" href="Imagenes/java.jpg"/>
         <link rel="stylesheet" href="CSS/Styles.css"/>
-        
+
         <h:outputStylesheet>
             .product-grid-item {
             display: flex;
@@ -30,7 +30,7 @@
             font-size: 14px;
             }
         </h:outputStylesheet>
-        
+
     </h:head>
 
     <h:body>
@@ -44,10 +44,32 @@
 
             <!-- Lista de ofertas -->
             <h:form id="form">
+
+
                 <p:dataView var="product" value="#{controllerOfertas.listaOfertas}" rows="12" paginator="true"
                             rowsPerPageTemplate="6,12,16" 
                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                             gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+
+                    <f:facet name="header">
+                        <h:form id="filtroForm">
+                            <p:toolbar>
+                                <p:toolbarGroup>
+                                    <p:outputLabel for="filtroNombre" value="Nombre Puesto:" />
+                                    <p:inputText id="filtroNombre" value="#{controllerOfertas.filtroNombre}" style="margin-right:10px;" />
+
+                                    <p:outputLabel for="filtroUbicacion" value="Ubicación:" />
+                                    <p:inputText id="filtroUbicacion" value="#{controllerOfertas.filtroUbicacion}" style="margin-right:10px;" />
+
+                                    <p:outputLabel for="filtroEmpresa" value="Empresa:" />
+                                    <p:inputText id="filtroEmpresa" value="#{controllerOfertas.filtroEmpresa}" style="margin-right:10px;" />
+
+                                    <p:commandButton value="Filtrar" actionListener="#{controllerOfertas.filtrarOfertas()}" 
+                                                     update="form" icon="pi pi-search"/>
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                        </h:form>
+                    </f:facet>
 
                     <!-- Vista en cuadrícula -->
                     <p:dataViewGridItem>
@@ -87,7 +109,7 @@
                 <p><strong>Empresa:</strong> #{controllerOfertas.ofertaSeleccionada.empresa}</p>
                 <p><strong>Ubicación:</strong> #{controllerOfertas.ofertaSeleccionada.ubicacion}</p>
                 <p><strong>Descripción:</strong> #{controllerOfertas.ofertaSeleccionada.detalles}</p>
-                
+
 
                 <p:growl id="messages" showDetail="true" life="3000"/>
 
