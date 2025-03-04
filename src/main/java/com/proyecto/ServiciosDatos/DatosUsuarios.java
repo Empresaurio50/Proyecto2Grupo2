@@ -156,4 +156,43 @@ public class DatosUsuarios extends AccesoDatos{
 
         }
     }
+    
+    public Usuario validarUsuario(String user, String pass) {
+
+        Usuario usuario = null;
+
+        PreparedStatement pre = null;
+        ResultSet respuesta = null;
+        try {
+
+            super.Conectar();
+            String sql = "SELECT idUsuario, correoUsuario, contrasenaUsuario FROM usuario WHERE correoUsuario = ? AND contrasenaUsuario = ?;";
+            pre = super.getConector().prepareStatement(sql);
+            pre.setString(1, user);
+            pre.setString(2, pass);
+
+            respuesta = pre.executeQuery();
+
+            while (respuesta.next()) {
+
+                usuario = new Usuario();
+                usuario.setIdUsuario(respuesta.getInt("idUsuario"));
+                usuario.setCorreoUsuario(respuesta.getString("correoUsuario"));
+                usuario.setContrasenaUsuario(respuesta.getString("contraUsuario"));
+
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            cerrarConexion();
+            cerrarResult(respuesta);
+            cerrarPrepared(prepared);
+
+        }
+
+        return usuario;
+
+    }
+    
 }

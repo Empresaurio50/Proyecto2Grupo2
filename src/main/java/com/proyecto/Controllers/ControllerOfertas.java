@@ -6,6 +6,7 @@ package com.proyecto.Controllers;
 
 import com.proyecto.Entidades.Ofertas;
 import com.proyecto.ServiciosDatos.DatosOfertas;
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -39,11 +40,11 @@ public class ControllerOfertas implements Serializable{
     
     private List<Ofertas> ofertasFiltradas = new ArrayList<>();
     
+    @PostConstruct
     public void cargarOfertas() {
         DatosOfertas datosOfertas = new DatosOfertas();
         this.listaOfertas = datosOfertas.leerOferta();
         this.ofertasFiltradas = new ArrayList<>(listaOfertas); // Copia inicial
-        this.redireccionar("/principal.xhtml");
     }
 
     public void filtrarOfertas() {
@@ -78,6 +79,9 @@ public class ControllerOfertas implements Serializable{
         this.ofertaSeleccionada = oferta;
         this.mostrarDetalles = true;
     }
+    
+    
+    
     
     public List<Ofertas> getListaOfertas() {
         return listaOfertas;

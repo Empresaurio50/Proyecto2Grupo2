@@ -18,12 +18,16 @@ Data View
     display: flex;
     height: 100vh; /* Ocupa toda la altura de la pantalla */
 }
-
+.p-dataview-content {
+    max-height: 70vh; /* Ajusta esto según el diseño */
+    overflow-y: auto; /* Habilita el scroll vertical */
+}
 /* Ajustar el card que contiene el menú */
 .card {
     width: 200px; /* Ancho del menú lateral */
     height: 100vh;
     overflow-y: auto;
+   flex: 0 0 auto; /* Mantiene el menú lateral fijo */
 }
 
 /* Ajustar el formulario y el contenido del DataView */
@@ -55,7 +59,13 @@ Data View
     overflow: hidden;
     object-fit: cover; /* Recorta la imagen para llenar el espacio */
 }
-
+.scroll-container {
+    flex: 1; /* Permite que el DataView crezca */
+    overflow-y: auto; /* Activa el scroll cuando es necesario */
+    max-height: 80vh; /* Ajusta esto si sigue sin aparecer el scroll */
+    padding: 10px;
+    border: 1px solid #ccc;
+}
 /*
 
 Menu lateral

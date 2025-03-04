@@ -45,59 +45,65 @@
             <!-- Lista de ofertas -->
             <h:form id="form">
 
+                <div class="scroll-container">
 
-                <p:dataView var="product" value="#{controllerOfertas.listaOfertas}" rows="12" paginator="true"
-                            rowsPerPageTemplate="6,12,16" 
-                            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                            gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+                    <p:dataView var="product" value="#{controllerOfertas.listaOfertas}" rows="12" paginator="true" 
+                                rowsPerPageTemplate="6,12,16" 
+                                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                gridIcon="pi pi-th-large" listIcon="pi pi-bars"
+                                >
 
-                    <f:facet name="header">
-                        <h:form id="filtroForm">
-                            <p:toolbar>
-                                <p:toolbarGroup>
-                                    <p:outputLabel for="filtroNombre" value="Nombre Puesto:" />
-                                    <p:inputText id="filtroNombre" value="#{controllerOfertas.filtroNombre}" style="margin-right:10px;" />
+                        <f:facet name="header">
+                            <h:form id="filtroForm">
+                                <p:toolbar>
+                                    <p:toolbarGroup>
+                                        <p:outputLabel for="filtroNombre" value="Nombre Puesto:" />
+                                        <p:inputText id="filtroNombre" value="#{controllerOfertas.filtroNombre}" style="margin-right:10px;" />
 
-                                    <p:outputLabel for="filtroUbicacion" value="Ubicación:" />
-                                    <p:inputText id="filtroUbicacion" value="#{controllerOfertas.filtroUbicacion}" style="margin-right:10px;" />
+                                        <p:outputLabel for="filtroUbicacion" value="Ubicación:" />
+                                        <p:inputText id="filtroUbicacion" value="#{controllerOfertas.filtroUbicacion}" style="margin-right:10px;" />
 
-                                    <p:outputLabel for="filtroEmpresa" value="Empresa:" />
-                                    <p:inputText id="filtroEmpresa" value="#{controllerOfertas.filtroEmpresa}" style="margin-right:10px;" />
+                                        <p:outputLabel for="filtroEmpresa" value="Empresa:" />
+                                        <p:inputText id="filtroEmpresa" value="#{controllerOfertas.filtroEmpresa}" style="margin-right:10px;" />
 
-                                    <p:commandButton value="Filtrar" actionListener="#{controllerOfertas.filtrarOfertas()}" 
-                                                     update="form" icon="pi pi-search"/>
-                                </p:toolbarGroup>
-                            </p:toolbar>
-                        </h:form>
-                    </f:facet>
+                                        <p:commandButton value="Filtrar" actionListener="#{controllerOfertas.filtrarOfertas()}" 
+                                                         update="form" icon="pi pi-search"/>
+                                    </p:toolbarGroup>
+                                </p:toolbar>
 
-                    <!-- Vista en cuadrícula -->
-                    <p:dataViewGridItem>
-                        <div class="product-grid-item card border-1">
-                            <div class="product-grid-item-content">
+                            </h:form>
+                        </f:facet>
+
+                        <!-- Vista en cuadrícula -->
+                        <p:dataViewGridItem>
+                            <div class="product-grid-item card border-1">
+                                <div class="product-grid-item-content">
+                                    <p:graphicImage name="ima/#{product.imagenOferta}" styleClass="img-producto"/>
+                                    <div class="product-nombrePuesto">#{product.nombrePuesto}</div>
+                                    <div class="product-idOferta">ID: #{product.idOferta}</div>
+                                    <p:commandButton value="Ver" icon="pi pi-info-circle"
+                                                     actionListener="#{controllerOfertas.verDetalles(product)}"
+                                                     update=":detallePanel"
+                                                     oncomplete="PF('detalleDialog').show()"/>
+                                </div>
+                            </div>
+
+
+                        </p:dataViewGridItem>
+
+                        <!-- Vista en lista -->
+                        <p:dataViewListItem>
+                            <div class="product-grid-item">
                                 <p:graphicImage name="ima/#{product.imagenOferta}" styleClass="img-producto"/>
                                 <div class="product-nombrePuesto">#{product.nombrePuesto}</div>
-                                <div class="product-idOferta">ID: #{product.idOferta}</div>
                                 <p:commandButton value="Ver" icon="pi pi-info-circle"
                                                  actionListener="#{controllerOfertas.verDetalles(product)}"
                                                  update=":detallePanel"
                                                  oncomplete="PF('detalleDialog').show()"/>
                             </div>
-                        </div>
-                    </p:dataViewGridItem>
-
-                    <!-- Vista en lista -->
-                    <p:dataViewListItem>
-                        <div class="product-grid-item">
-                            <p:graphicImage name="ima/#{product.imagenOferta}" styleClass="img-producto"/>
-                            <div class="product-nombrePuesto">#{product.nombrePuesto}</div>
-                            <p:commandButton value="Ver" icon="pi pi-info-circle"
-                                             actionListener="#{controllerOfertas.verDetalles(product)}"
-                                             update=":detallePanel"
-                                             oncomplete="PF('detalleDialog').show()"/>
-                        </div>
-                    </p:dataViewListItem>
-                </p:dataView>
+                        </p:dataViewListItem>
+                    </p:dataView>
+                </div>
             </h:form>
         </div>
 
