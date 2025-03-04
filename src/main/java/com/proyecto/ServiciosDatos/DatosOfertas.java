@@ -25,21 +25,25 @@ public class DatosOfertas extends AccesoDatos {
         List<Ofertas> listaRetorno = new ArrayList<>();
 
         try {
-
             super.Conectar();
-            String sql = "SELECT idOferta, nombrePuesto, logo FROM ofertas;";
+
+            String sql = "SELECT o.idOferta, o.nombrePuesto, e.nombreEmpresa, e.ubicacion, o.logo from ofertas o, empresas e where o.idEmpresa = e.idEmpresa;";
+
             prepared = super.getConector().prepareStatement(sql);
             result = prepared.executeQuery();
 
             while (result.next()) {
 
                 Ofertas objOfertas = new Ofertas();
-                objOfertas.setIdOferta(result.getInt("idOferta"));
-                objOfertas.setNombrePuesto(result.getString("nombrePuesto"));
-                objOfertas.setImagenOferta(result.getString("logo"));
+                objOfertas.setIdOferta(result.getInt("o.idOferta"));
+                objOfertas.setNombrePuesto(result.getString("o.nombrePuesto"));
+                objOfertas.setEmpresa(result.getString("e.nombreEmpresa"));
+                objOfertas.setUbicacion(result.getString("e.ubicacion"));
+                objOfertas.setImagenOferta(result.getString("o.logo"));
 
                 listaRetorno.add(objOfertas);
 
+                
             }
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -51,5 +55,4 @@ public class DatosOfertas extends AccesoDatos {
         }
         return listaRetorno;
     }
-
 }

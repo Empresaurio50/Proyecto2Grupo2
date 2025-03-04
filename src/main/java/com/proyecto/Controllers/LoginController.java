@@ -53,7 +53,7 @@ public class LoginController implements Serializable{
 
             redireccionar("/principal.xhtml");
         } else {
-            FacesContext.getCurrentInstance().addMessage("error", new FacesMessage(FacesMessage.SEVERITY_ERROR, "erroe1", "error2"));
+            FacesContext.getCurrentInstance().addMessage("error", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error Verificar", "La contraseña o el correo son incorrectos"));
         }
 
     }

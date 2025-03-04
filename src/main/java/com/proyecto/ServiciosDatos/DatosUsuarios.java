@@ -178,7 +178,7 @@ public class DatosUsuarios extends AccesoDatos{
                 usuario = new Usuario();
                 usuario.setIdUsuario(respuesta.getInt("idUsuario"));
                 usuario.setCorreoUsuario(respuesta.getString("correoUsuario"));
-                usuario.setContrasenaUsuario(respuesta.getString("contraUsuario"));
+                usuario.setContrasenaUsuario(respuesta.getString("contrasenaUsuario"));
 
             }
 

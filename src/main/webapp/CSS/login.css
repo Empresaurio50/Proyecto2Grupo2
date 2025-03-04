@@ -26,7 +26,7 @@ body {
     border-radius: 12px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    border-top: 5px solid #b71c1c;
+    border-top: 5px solid blue;
 }
 
 .input-container {
@@ -35,13 +35,13 @@ body {
     width: 100%;
     background: white;
     border: none;
-    border-bottom: 2px solid #b71c1c;
+    border-bottom: 2px solid blue;
     padding: 8px;
     margin-bottom: 15px;
 }
 
 .icon {
-    color: #b71c1c;
+    color: blue;
     font-size: 16px;
     margin-right: 8px;
 }
@@ -56,7 +56,7 @@ body {
 .forgot-password {
     display: block;
     margin-top: 10px;
-    color: #b71c1c;
+    color: blue;
     font-size: 14px;
     cursor: pointer;
 }
