@@ -1,34 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
--->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <title>My pag</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="icon" type="img/jpg" href="Imagenes/java.jpg"/>
-        <link rel="stylesheet" href="CSS/Styles.css"/>
+        <link rel="stylesheet" href="CSS/login.css"/>
     </h:head>
 
     <h:body>
-        <h:body>
-            <h:form>
-                <p:growl id="growl" showDetail="true" life="800"/>
-                <p:panelGrid columns="1"/>
-                <p:messages id="messages" showDetail="true" closable="true"/>
-                Usuario: <p:inputText value="#{loginController.correoUsuario}"/>
-                Contrasena: <p:password value="#{loginController.contraUsuario}"/>
-                <p:commandButton value="Ingresar" actionListener="#{loginController.verificar()}" update="growl, message"/>
+        <div class="login-container">
+            <h:form class="login-form">
+                <p:growl id="growl" showDetail="true" life="3000"/>
+
+                <p:panel header="Iniciar" styleClass="login-panel">
+                    <h:panelGrid columns="1" styleClass="login-grid">
+
+                        <div class="input-container">
+                            <i class="pi pi-user icon"></i>
+                            <p:inputText id="usuario" value="#{loginController.correoUsuario}" styleClass="input-field" placeholder="Correo"/>
+                        </div>
+
+                        <div class="input-container">
+                            <i class="pi pi-lock icon"></i>
+                            <p:password id="contrasena" value="#{loginController.contraUsuario}" styleClass="input-field" placeholder="Contraseña"/>
+                        </div>
+
+                        <p:commandButton value="Iniciar" actionListener="#{loginController.verificar()}"
+                                         update="growl messages" styleClass="login-button"/>
+                        
+                        
+                        <p:button value="Registrarse" outcome="registrarme" styleClass="login-button" />
+                    </h:panelGrid>
+                </p:panel>
             </h:form>
-        </h:body>
-
+        </div>
     </h:body>
-
-
 </html>
