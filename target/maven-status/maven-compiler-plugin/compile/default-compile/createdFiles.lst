@@ -1,0 +1,7 @@
+com\proyecto\Entidades\Provincia.class
+com\proyecto\ServiciosDatos\DatosProvincias.class
+com\proyecto\Controllers\ControllerOfertas.class
+com\proyecto\Entidades\Ofertas.class
+com\proyecto\Controllers\LoginController.class
+com\proyecto\Controllers\ControllerRegistro.class
+com\proyecto\ServiciosDatos\DatosOfertas.class
