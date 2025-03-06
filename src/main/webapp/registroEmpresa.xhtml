@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>Registro Empresa</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </h:head>
+    
+    <h:body class="bg-gray-100 flex items-center justify-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+            <h1 class="text-2xl font-bold mb-6 text-center">Registrarse</h1>
+            
+            <h:form>
+                <p:growl id="growl" showDetail="true" sticky="true" />
+                
+                <div class="mb-4">
+                    <p:outputLabel for="nombresEmpresa" value="Nombre Empresa:" styleClass="block font-semibold mb-2"/>
+                    <p:inputText id="nombresEmpresa" value="#{controllerEmpresas.nombreEmpresa}" 
+                               required="true" requiredMessage="El nombre es requerido"
+                               styleClass="w-full border border-gray-300 rounded-md p-2"/>
+                </div>
+                
+                
+                <div class="mb-4">
+                    <p:outputLabel for="correoEmpresa" value="Correo Empresarial:" styleClass="block font-semibold mb-2"/>
+                    <p:inputText id="correoEmpresa" value="#{controllerEmpresas.correoEmpresa}"
+                               required="true" requiredMessage="El correo es requerido"
+                               validatorMessage="Correo inválido"
+                               styleClass="w-full border border-gray-300 rounded-md p-2">
+                        <f:validateRegex pattern="^[A-Za-z0-9+_.-]+@(.+)$"/>
+                    </p:inputText>
+                </div>
+                
+                <div class="mb-4">
+                    <p:outputLabel for="contrasenaEmpresa" value="Contraseña:" styleClass="block font-semibold mb-2"/>
+                    <p:password id="contrasenaEmpresa" value="#{controllerEmpresas.contraEmpresa}"
+                              required="true" requiredMessage="La contraseña es requerida"
+                              styleClass="w-full border border-gray-300 rounded-md p-2"
+                              feedback="true" toggleMask="true"/>
+                </div>
+                
+                
+                <div class="mb-4">
+                    <p:outputLabel for="provincia" value="Provincia:" styleClass="block font-semibold mb-2"/>
+                    <p:selectOneMenu id="provincia" value="#{controllerEmpresas.idProvincia}"
+                                   required="true" requiredMessage="La provincia es requerida">
+                        <f:selectItem itemLabel="Seleccione una provincia" itemValue=""/>
+                        <f:selectItems value="#{controllerRegistro.provincias}"
+                                     var="prov"
+                                     itemLabel="#{prov.nombreProvincia}"
+                                     itemValue="#{prov.idProvincia}"/>
+                    </p:selectOneMenu>
+                </div>
+
+                <div class="mb-4">
+                    <p:outputLabel for="quienesSomos" value="Quienes Somos:" styleClass="block font-semibold mb-2"/>
+                    <p:inputText id="quienesSomos" value="#{controllerEmpresas.quienesSomoss}" 
+                               required="true" requiredMessage="La descripcion es requerida"
+                               styleClass="w-full border border-gray-300 rounded-md p-2"/>
+                </div>
+                <div class="mb-4">
+                    <p:outputLabel for="tipoSector" value="Tipo Sector:" styleClass="block font-semibold mb-2"/>
+                    <p:inputText id="tipoSector" value="#{controllerEmpresas.tipoSector}" 
+                               required="true" requiredMessage="El sector es requerido"
+                               styleClass="w-full border border-gray-300 rounded-md p-2"/>
+                </div>
+                
+                <div class="flex justify-between">
+                    <p:commandButton value="Registrar Empresa" 
+                                     action="#{controllerEmpresas.registrarEmpresa()}"
+                                   update="@form"
+                                   styleClass="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md"/>
+                    <p:button value="Atrás" outcome="index" 
+                             styleClass="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-md"/>
+                </div>
+                
+            </h:form>
+        </div>
+    </h:body>
+</html>

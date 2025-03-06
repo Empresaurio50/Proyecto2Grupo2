@@ -10,6 +10,7 @@ import com.proyecto.ServiciosDatos.AccesoDatos;
 import com.proyecto.ServiciosDatos.AccesoDatos;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class DatosProvincias extends AccesoDatos {
                 provincia.setNombreProvincia(result.getString("nombreProvincia"));
                 provincias.add(provincia);
             }
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Error al obtener provincias: " + e.getMessage());
         } finally {
             cerrarConexion();

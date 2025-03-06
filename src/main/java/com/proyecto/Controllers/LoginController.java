@@ -33,8 +33,8 @@ public class LoginController implements Serializable{
     private String correoUsuario;
     private String contraUsuario;
     private List<Ofertas> listaRetorno = new ArrayList<>();
-    private DatosUsuarios datosusuarios = new DatosUsuarios();
-    private DatosOfertas datosOfertas = new DatosOfertas();
+    private final DatosUsuarios datosusuarios = new DatosUsuarios();
+    private final DatosOfertas datosOfertas = new DatosOfertas();
     
     /**
      * Constructor vacío de LoginController.

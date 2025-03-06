@@ -27,18 +27,20 @@ public class DatosOfertas extends AccesoDatos {
         try {
             super.Conectar();
 
-            String sql = "SELECT o.idOferta, o.nombrePuesto, e.nombreEmpresa, e.ubicacion, o.logo from ofertas o, empresas e where o.idEmpresa = e.idEmpresa;";
+            String sql = "SELECT o.idOferta, o.nombrePuesto, e.nombreEmpresa, p.nombreProvincia , o.logo "
+                    + "from ofertas o, empresas e, provincia p "
+                    + "where o.idEmpresa = e.idEmpresa and e.idProvincia = p.idProvincia;";
 
-            prepared = super.getConector().prepareStatement(sql);
-            result = prepared.executeQuery();
+            this.prepared = super.getConector().prepareStatement(sql);
+            this.result = prepared.executeQuery();
 
-            while (result.next()) {
+            while (this.result.next()) {
 
                 Ofertas objOfertas = new Ofertas();
                 objOfertas.setIdOferta(result.getInt("o.idOferta"));
                 objOfertas.setNombrePuesto(result.getString("o.nombrePuesto"));
                 objOfertas.setEmpresa(result.getString("e.nombreEmpresa"));
-                objOfertas.setUbicacion(result.getString("e.ubicacion"));
+                objOfertas.setUbicacion(result.getString("p.nombreProvincia"));
                 objOfertas.setImagenOferta(result.getString("o.logo"));
 
                 listaRetorno.add(objOfertas);
@@ -50,8 +52,8 @@ public class DatosOfertas extends AccesoDatos {
             System.out.print(e);
         } finally {
             cerrarConexion();
-            cerrarPrepared(prepared);
-            cerrarResult(result);
+            cerrarPrepared(this.prepared);
+            cerrarResult(this.result);
         }
         return listaRetorno;
     }

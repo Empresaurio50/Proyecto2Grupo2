@@ -62,7 +62,7 @@ public class DatosUsuarios extends AccesoDatos{
                 return result.getInt(1) > 0;
             }
             return false;
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Error al verificar usuario: " + e.getMessage());
             return false;
         } finally {

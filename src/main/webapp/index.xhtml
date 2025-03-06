@@ -39,6 +39,9 @@
                         
                         
                         <p:button value="Registrarse" outcome="registrarme" styleClass="login-button" />
+                        
+                        <p:commandButton value="Registrar Empresa" actionListener="#{controllerEmpresas.dirigirRegistroEmpresa()}"
+                                 update="growl messages" styleClass="login-button"/>
                     </h:panelGrid>
                 </p:panel>
             </h:form>

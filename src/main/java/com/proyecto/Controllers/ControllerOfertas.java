@@ -45,6 +45,7 @@ public class ControllerOfertas implements Serializable{
      * Utiliza la clase DatosOfertas para obtener los datos.
      */
     
+    @PostConstruct
     public void cargarOfertas() {
         DatosOfertas datosOfertas = new DatosOfertas();
         this.listaOfertas = datosOfertas.leerOferta();
@@ -59,7 +60,7 @@ public class ControllerOfertas implements Serializable{
         this.ofertasFiltradas = listaOfertas.stream()
                 .filter(oferta -> filtroNombre.isEmpty() || oferta.getNombrePuesto().toLowerCase().contains(filtroNombre.toLowerCase()))
                 .filter(oferta -> filtroEmpresa.isEmpty() || oferta.getEmpresa().toLowerCase().contains(filtroEmpresa.toLowerCase()))
-                .filter(oferta -> filtroUbicacion.isEmpty() || oferta.getUbicacion().toLowerCase().contains(filtroUbicacion.toLowerCase()))
+                .filter(oferta -> filtroUbicacion.isEmpty() || oferta.getNombrePuesto().toLowerCase().contains(filtroUbicacion.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
