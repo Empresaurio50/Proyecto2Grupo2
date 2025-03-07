@@ -21,8 +21,9 @@ import java.util.stream.Collectors;
 /**
  *
  * @author empre
+ * Controlador de JSF para la gestión de ofertas de trabajo.
+ * Este bean gestiona la lista de ofertas, el filtrado y la interacción del usuario.
  */
-
 @Named
 @SessionScoped
 public class ControllerOfertas implements Serializable{
@@ -39,13 +40,21 @@ public class ControllerOfertas implements Serializable{
     
     private List<Ofertas> ofertasFiltradas = new ArrayList<>();
     
-    @PostConstruct
+    /**
+     * Carga la lista de ofertas al inicializar el bean.
+     * Utiliza la clase DatosOfertas para obtener los datos.
+     */
+    
     public void cargarOfertas() {
         DatosOfertas datosOfertas = new DatosOfertas();
         this.listaOfertas = datosOfertas.leerOferta();
         this.ofertasFiltradas = new ArrayList<>(listaOfertas); // Copia inicial
     }
 
+    /**
+     * Filtra la lista de ofertas basándose en los criterios introducidos por el usuario.
+     * Utiliza Streams de Java 8 para el filtrado.
+     */
     public void filtrarOfertas() {
         this.ofertasFiltradas = listaOfertas.stream()
                 .filter(oferta -> filtroNombre.isEmpty() || oferta.getNombrePuesto().toLowerCase().contains(filtroNombre.toLowerCase()))
@@ -54,6 +63,11 @@ public class ControllerOfertas implements Serializable{
                 .collect(Collectors.toList());
     }
 
+       /**
+     * Redirige a la ruta especificada.
+     *
+     * @param ruta La ruta a la que se redirige.
+     */
     public void redireccionar(String ruta) {
         HttpServletRequest request;
         try {
@@ -63,6 +77,12 @@ public class ControllerOfertas implements Serializable{
         }
     } 
 
+     /**
+     * Simula el envío de una solicitud para una oferta de trabajo.
+     * Muestra un mensaje en la interfaz de usuario.
+     *
+     * @param idOferta El ID de la oferta para la que se envía la solicitud.
+     */
     public void solicitarOferta(int idOferta) {
         // Simulación de envío de solicitud (aquí podrías agregar lógica real)
         System.out.println("Solicitud enviada para la oferta con ID: " + idOferta);
@@ -76,6 +96,9 @@ public class ControllerOfertas implements Serializable{
         this.ofertaSeleccionada = oferta;
         this.mostrarDetalles = true;
     }
+    
+    
+    // Getters y setters (necesarios para que JSF pueda acceder a los atributos)
     
     public List<Ofertas> getListaOfertas() {
         return listaOfertas;

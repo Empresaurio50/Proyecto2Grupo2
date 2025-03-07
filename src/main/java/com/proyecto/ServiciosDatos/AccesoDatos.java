@@ -14,7 +14,7 @@ import java.sql.SQLException;
  *
  * @author empre
  */
-public class AccesoDatos {
+public abstract class AccesoDatos {
 
     protected Connection conector;
 

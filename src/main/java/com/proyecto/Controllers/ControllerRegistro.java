@@ -18,6 +18,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Controlador para la gestión del registro de usuarios.
+ * Este bean gestiona la información del usuario y la lógica de registro.
+ */
+
 @Named
 @SessionScoped
 public class ControllerRegistro implements Serializable {
@@ -31,11 +36,18 @@ public class ControllerRegistro implements Serializable {
     private int idProvincia;
     private List<Provincia> provincias;
 
+    /**
+     * Inicializa el bean y carga la lista de provincias.
+     */
     @PostConstruct
     public void init() {
         cargarProvincias();
     }
 
+    /**
+     * Carga la lista de provincias desde la clase DatosProvincias.
+     * Si ocurre un error, muestra un mensaje de error.
+     */
     private void cargarProvincias() {
         try {
             DatosProvincias datosProvincias = new DatosProvincias();
@@ -44,6 +56,13 @@ public class ControllerRegistro implements Serializable {
             mostrarMensaje(FacesMessage.SEVERITY_ERROR, "Error", "No se pudieron cargar las provincias");
         }
     }
+    
+    /**
+     * Registra un nuevo usuario en la base de datos.
+     * Valida la información del usuario y muestra mensajes de éxito o error.
+     *
+     * @return La página a la que se redirige después del registro.
+     */
 
     public String registrarUsuario() {
         try {
@@ -82,6 +101,10 @@ public class ControllerRegistro implements Serializable {
             return null;
         }
     }
+    
+    /**
+     * Limpia los campos del formulario de registro.
+     */
 
     private void limpiarCampos() {
         nombres = null;
@@ -92,6 +115,12 @@ public class ControllerRegistro implements Serializable {
         fechaNacimiento = null;
         idProvincia = 0;
     }
+    
+    /**
+     * Verifica si el usuario es mayor de edad.
+     *
+     * @return true si el usuario es mayor de edad, false de lo contrario.
+     */
 
     private boolean esMayorDeEdad() {
         if (fechaNacimiento == null) {
@@ -110,6 +139,14 @@ public class ControllerRegistro implements Serializable {
         return edad >= 18;
     }
 
+    
+    /**
+     * Valida la contraseña del usuario.
+     * La contraseña debe tener al menos 8 caracteres y contener letras y números.
+     *
+     * @return true si la contraseña es válida, false de lo contrario.
+     */
+    
     private boolean validarContrasena() {
         if (contrasena == null || contrasena.length() < 8) {
             return false;
@@ -132,6 +169,14 @@ public class ControllerRegistro implements Serializable {
 
         return false;
     }
+    
+    /**
+     * Muestra un mensaje en la interfaz de usuario.
+     *
+     * @param severidad La severidad del mensaje.
+     * @param titulo    El título del mensaje.
+     * @param detalle   El detalle del mensaje.
+     */
 
     private void mostrarMensaje(FacesMessage.Severity severidad, String titulo, String detalle) {
         FacesContext.getCurrentInstance().addMessage(null,

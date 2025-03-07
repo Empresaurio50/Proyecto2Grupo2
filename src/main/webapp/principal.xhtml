@@ -35,19 +35,31 @@
 
     <h:body>
         <div class="container">
-            <!-- Menú lateral -->
+            <!--
+            
+            
+            Menú lateral 
+            
+            
+            -->
             <div class="card">
                 <p:tabMenu activeIndex="0" style="width:auto; height:auto;" orientation="left">
                     <p:menuitem value="Principal" outcome="" icon="pi pi-fw pi-home"/>
                 </p:tabMenu>
             </div>
 
-            <!-- Lista de ofertas -->
+            <!--
+            
+            
+            El dataview de la lista de ofertas
+            
+            
+            -->
             <h:form id="form">
 
                 <div class="scroll-container">
 
-                    <p:dataView var="product" value="#{controllerOfertas.listaOfertas}" rows="12" paginator="true" 
+                    <p:dataView var="product" value="#{loginController.listaRetorno}" rows="12" paginator="true" 
                                 rowsPerPageTemplate="6,12,16" 
                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                 gridIcon="pi pi-th-large" listIcon="pi pi-bars"
@@ -74,7 +86,13 @@
                             </h:form>
                         </f:facet>
 
-                        <!-- Vista en cuadrícula -->
+                        <!--
+                        
+                        
+                        Vista en cuadrícula de ofertas
+                        
+                        
+                        -->
                         <p:dataViewGridItem>
                             <div class="product-grid-item card border-1">
                                 <div class="product-grid-item-content">
@@ -91,7 +109,14 @@
 
                         </p:dataViewGridItem>
 
-                        <!-- Vista en lista -->
+                        <!--
+                        
+                        
+                        Vista en lista 
+                        
+                        
+                        -->
+                        
                         <p:dataViewListItem>
                             <div class="product-grid-item">
                                 <p:graphicImage name="ima/#{product.imagenOferta}" styleClass="img-producto"/>
@@ -107,7 +132,14 @@
             </h:form>
         </div>
 
-        <!-- Panel lateral con detalles de la oferta -->
+        <!-- 
+        
+        
+        Panel lateral con detalles de la oferta 
+        
+        
+        -->
+        
         <p:sidebar widgetVar="detalleDialog" position="right" id="detallePanel" dynamic="true">
             <h:form>
                 <h3>Detalles de la Oferta</h3>
